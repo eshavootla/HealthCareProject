@@ -1,6 +1,6 @@
 package com.health.model;
 
-import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,21 +20,24 @@ public class Appointment {
 	@Column
 	private int appointmentId;
 	@Column
-	private Calendar date;
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkPatientId")
+	private Date date;
+	@Column
+	private String time;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fkPatientId",referencedColumnName="patientId")
 	private Patient patient;
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkDoctorId")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fkDoctorId",referencedColumnName="doctorId")
 	private Doctor doctor;
 
 	public Appointment() {
 		super();
 	}
 
-	public Appointment(Calendar date, Patient patient, Doctor doctor) {
+	public Appointment(Date date, String time, Patient patient, Doctor doctor) {
 		super();
 		this.date = date;
+		this.time = time;
 		this.patient = patient;
 		this.doctor = doctor;
 	}
@@ -47,12 +50,20 @@ public class Appointment {
 		this.appointmentId = appointmentId;
 	}
 
-	public Calendar getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(Calendar date) {
+	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 	public Patient getPatient() {
